@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -43,17 +44,76 @@
         .text-glow-blue { text-shadow: 0 0 16px rgba(96, 165, 250, 0.8); }
     </style>
 </head>
-<body class="min-h-screen pb-16">
+<body class="min-h-screen pb-16 flex flex-col justify-between">
 
-    <header class="sticky top-0 z-50 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl">
+    <!-- AUTH SECTION (LOGIN / REGISTER) -->
+    <div id="auth-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl">
+        <div class="max-w-md w-full card-3d p-6 rounded-3xl space-y-6 border border-white/20 shadow-2xl">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg">
+                    <i class="fa-solid fa-kaaba"></i>
+                </div>
+                <h1 class="text-2xl font-black text-white text-glow-white">BarakahTime</h1>
+                <p id="auth-subtitle" class="text-xs text-blue-200/80">Silakan masuk atau daftar akun terlebih dahulu</p>
+            </div>
+
+            <!-- FORM LOGIN -->
+            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-blue-200 mb-1">Email Pengguna</label>
+                    <input type="email" id="login-email" required placeholder="nama@email.com" 
+                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-blue-200 mb-1">Kata Sandi</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" 
+                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
+                </div>
+                <button type="submit" class="w-full btn-3d-amber text-slate-950 font-black py-3 rounded-xl text-sm transition-transform active:scale-95">
+                    Masuk ke Aplikasi
+                </button>
+                <p class="text-center text-xs text-blue-200/70 pt-2">
+                    Belum punya akun? <span onclick="toggleAuthMode('register')" class="text-amber-300 font-bold cursor-pointer underline">Daftar di sini</span>
+                </p>
+            </form>
+
+            <!-- FORM REGISTER -->
+            <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-bold text-blue-200 mb-1">Nama Panggilan / Nickname</label>
+                    <input type="text" id="reg-nickname" required placeholder="Contoh: Ahmad / Fulan" 
+                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-blue-200 mb-1">Email</label>
+                    <input type="email" id="reg-email" required placeholder="nama@email.com" 
+                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-blue-200 mb-1">Buat Kata Sandi Baru</label>
+                    <input type="password" id="reg-password" required placeholder="••••••••" 
+                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                </div>
+                <button type="submit" class="w-full btn-3d-emerald text-slate-950 font-black py-3 rounded-xl text-sm transition-transform active:scale-95">
+                    Daftar Akun
+                </button>
+                <p class="text-center text-xs text-blue-200/70 pt-2">
+                    Sudah punya akun? <span onclick="toggleAuthMode('login')" class="text-emerald-300 font-bold cursor-pointer underline">Masuk di sini</span>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- HEADER UTAMA APLIKASI -->
+    <header class="sticky top-0 z-40 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl">
         <div class="max-w-md mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-2xl">
                     <i class="fa-solid fa-kaaba"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-lg leading-tight tracking-wide text-white text-glow-blue">BarakahTime</h1>
-                    <p class="text-[11px] text-blue-200/80 font-medium">3D Muslim Planner & Sunnah</p>
+                    <h1 class="font-extrabold text-sm leading-tight tracking-wide text-white text-glow-blue" id="user-display-name">BarakahTime</h1>
+                    <p class="text-[10px] text-blue-200/80 font-medium cursor-pointer hover:text-red-400" onclick="logout()">Keluar Akun <i class="fa-solid fa-right-from-bracket ml-1"></i></p>
                 </div>
             </div>
             <div class="bg-blue-950/80 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30 shadow-inner">
@@ -62,7 +122,8 @@
         </div>
     </header>
 
-    <main class="max-w-md mx-auto px-4">
+    <!-- MAIN APP CONTENT -->
+    <main class="max-w-md mx-auto px-4 w-full">
         <!-- VIEW 1: BERANDA -->
         <div id="view-home" class="space-y-5">
             <div class="text-center py-2 mb-1">
@@ -168,6 +229,104 @@
     </main>
 
     <script>
+        // AUTH SYSTEM
+        let usersDB = JSON.parse(localStorage.getItem('barakah_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('barakah_current_user')) || null;
+
+        function toggleAuthMode(mode) {
+            if(mode === 'register') {
+                document.getElementById('form-login').classList.add('hidden');
+                document.getElementById('form-register').classList.remove('hidden');
+                document.getElementById('auth-subtitle').innerText = "Buat akun baru & masukkan nama panggilanmu";
+            } else {
+                document.getElementById('form-register').classList.add('hidden');
+                document.getElementById('form-login').classList.remove('hidden');
+                document.getElementById('auth-subtitle').innerText = "Silakan masuk atau daftar akun terlebih dahulu";
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const nickname = document.getElementById('reg-nickname').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+
+            if(usersDB.some(u => u.email === email)) {
+                alert('Email ini sudah terdaftar! Silakan langsung login.');
+                return;
+            }
+
+            const newUser = { nickname, email, password };
+            usersDB.push(newUser);
+            localStorage.setItem('barakah_users', JSON.stringify(usersDB));
+            
+            alert('Pendaftaran berhasil! Silakan login dengan email dan sandi Anda.');
+            toggleAuthMode('login');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const foundUser = usersDB.find(u => u.email === email && u.password === password);
+
+            if(foundUser) {
+                currentUser = foundUser;
+                localStorage.setItem('barakah_current_user', JSON.stringify(currentUser));
+                checkAuth();
+            } else {
+                alert('Login Gagal! Email atau kata sandi salah / belum terdaftar.');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('barakah_current_user');
+            currentUser = null;
+            checkAuth();
+        }
+
+        function checkAuth() {
+            if(currentUser) {
+                document.getElementById('auth-container').classList.add('hidden');
+                document.getElementById('user-display-name').innerText = `Ahlan wa Sahlan, ${currentUser.nickname}`;
+                loadUserData();
+            } else {
+                document.getElementById('auth-container').classList.remove('hidden');
+            }
+        }
+
+        // APP DATA SYSTEM
+        let db = { time: {}, dzikir: {}, sunnah: {}, points: 0 };
+
+        function loadUserData() {
+            if(!currentUser) return;
+            const savedData = localStorage.getItem(`barakah_data_${currentUser.email}`);
+            if(savedData) {
+                db = JSON.parse(savedData);
+            } else {
+                db = { time: {}, dzikir: {}, sunnah: {}, points: 0 };
+            }
+            document.getElementById('total-points').innerText = db.points;
+            renderTime();
+            renderDzikir();
+            renderSunnah();
+        }
+
+        function saveDB() {
+            if(!currentUser) return;
+            localStorage.setItem(`barakah_data_${currentUser.email}`, JSON.stringify(db));
+            document.getElementById('total-points').innerText = db.points;
+        }
+
+        function switchView(viewId) {
+            ['view-home', 'view-time', 'view-dzikir', 'view-sunnah100'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
         const timeData = [
             { id: 't1', time: '01.00 - 04.00', title: 'Shalat Sunnah Tahajud & Istighfar Sahar', dalil: 'HR. Bukhari no. 1145', reward: 'Allah turun ke langit dunia mengabulkan doa & mengampuni dosa.' },
             { id: 't2', time: '04.30 - 05.30', title: 'Shalat Subuh Berjamaah & Dzikir Pagi', dalil: 'HR. Muslim no. 657', reward: 'Berada dalam jaminan perlindungan Allah seharian penuh.' },
@@ -199,21 +358,6 @@
             "Bertasbih menggunakan jari-jari tangan kanan.", "Mengerjakan shalat Dhuha (minimal 2 rakaat).", "Membunuh cicak.", "Menjaga diri agar tidak terkena percikan kencing.", "Mandi Jum'at sebelum shalat Jum'at.", "Meninggalkan dan menghindar saat mendengar musik.", "Tidak mengusap wajah setelah selesai berdoa.", "Memulai doa dengan pujian kepada Allah lalu bershalawat.", "Berdoa dengan menyebut Asmaul Husna.", "Berdoa menghadap ke arah kiblat.",
             "Berdoa dengan mengangkat dan menggabungkan telapak tangan.", "Tidak mengangkat tangan saat berdoa dalam khutbah Jum'at.", "Memperbanyak doa saat hujan turun.", "Memperbanyak doa setelah waktu Ashar pada hari Jum'at.", "Memperbanyak doa ketika sujud.", "Berdoa sebelum salam setelah tasyahud akhir.", "Memaksimalkan berdoa di antara adzan dan iqamah.", "Shalat 2 rakaat Tahiyyatul Masjid sebelum duduk.", "Mengucapkan Alhamdulillah saat bersin & membalasnya.", "Menutup wajah saat bersin dan menahan mulut saat menguap."
         ];
-
-        let db = JSON.parse(localStorage.getItem('barakah_3d_db')) || { time: {}, dzikir: {}, sunnah: {}, points: 0 };
-
-        function saveDB() {
-            localStorage.setItem('barakah_3d_db', JSON.stringify(db));
-            document.getElementById('total-points').innerText = db.points;
-        }
-
-        function switchView(viewId) {
-            ['view-home', 'view-time', 'view-dzikir', 'view-sunnah100'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
-            document.getElementById(viewId).classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
 
         function renderTime() {
             const container = document.getElementById('time-list');
@@ -301,10 +445,9 @@
             });
         }
 
-        document.getElementById('total-points').innerText = db.points;
-        renderTime();
-        renderDzikir();
-        renderSunnah();
+        // Initialize App Check
+        checkAuth();
     </script>
 </body>
 </html>
+```
