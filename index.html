@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BarakahTime - Premium 3D Muslim Planner</title>
+    <title>HijraPlan - Premium 3D Muslim Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -52,8 +52,9 @@
                 <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg">
                     <i class="fa-solid fa-kaaba"></i>
                 </div>
-                <h1 class="text-2xl font-black text-white text-glow-white">BarakahTime</h1>
-                <p id="auth-subtitle" class="text-xs text-blue-200/80">Silakan masuk atau daftar akun terlebih dahulu</p>
+                <h1 class="text-2xl font-black text-white text-glow-white">HijraPlan</h1>
+                <p class="text-[10px] text-amber-300 font-bold tracking-wider">BY @TAKUTDOSA.ID</p>
+                <p id="auth-subtitle" class="text-xs text-blue-200/80 pt-1">Silakan masuk atau daftar akun terlebih dahulu</p>
             </div>
 
             <!-- FORM LOGIN -->
@@ -111,8 +112,12 @@
                     <i class="fa-solid fa-kaaba"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-sm leading-tight tracking-wide text-white text-glow-blue" id="user-display-name">BarakahTime</h1>
-                    <p class="text-[10px] text-blue-200/80 font-medium cursor-pointer hover:text-red-400" onclick="logout()">Keluar Akun <i class="fa-solid fa-right-from-bracket ml-1"></i></p>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-extrabold text-sm leading-tight tracking-wide text-white text-glow-blue">HijraPlan</h1>
+                        <span class="bg-amber-400/20 text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded border border-amber-400/30">by@takutdosa.id</span>
+                    </div>
+                    <p class="text-[11px] text-blue-200 font-medium mt-0.5" id="user-display-name">Ahlan wa Sahlan</p>
+                    <p class="text-[9px] text-red-400/80 font-semibold cursor-pointer hover:underline mt-0.5" onclick="logout()">Keluar Akun <i class="fa-solid fa-right-from-bracket ml-0.5"></i></p>
                 </div>
             </div>
             <div class="bg-blue-950/80 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30 shadow-inner">
@@ -142,7 +147,6 @@
                     </select>
                 </div>
                 <div id="prayer-times-container" class="grid grid-cols-5 gap-1.5 text-center pt-2 border-t border-white/10">
-                    <!-- Loading state -->
                     <div class="col-span-5 text-xs text-blue-200/60 py-2">Memuat jadwal shalat...</div>
                 </div>
             </div>
@@ -246,8 +250,8 @@
 
     <script>
         // AUTH SYSTEM
-        let usersDB = JSON.parse(localStorage.getItem('barakah_users')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('barakah_current_user')) || null;
+        let usersDB = JSON.parse(localStorage.getItem('hijraplan_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('hijraplan_current_user')) || null;
 
         function toggleAuthMode(mode) {
             if(mode === 'register') {
@@ -274,7 +278,7 @@
 
             const newUser = { nickname, email, password };
             usersDB.push(newUser);
-            localStorage.setItem('barakah_users', JSON.stringify(usersDB));
+            localStorage.setItem('hijraplan_users', JSON.stringify(usersDB));
             
             alert('Pendaftaran berhasil! Silakan login dengan email dan sandi Anda.');
             toggleAuthMode('login');
@@ -289,7 +293,7 @@
 
             if(foundUser) {
                 currentUser = foundUser;
-                localStorage.setItem('barakah_current_user', JSON.stringify(currentUser));
+                localStorage.setItem('hijraplan_current_user', JSON.stringify(currentUser));
                 checkAuth();
             } else {
                 alert('Login Gagal! Email atau kata sandi salah / belum terdaftar.');
@@ -297,7 +301,7 @@
         }
 
         function logout() {
-            localStorage.removeItem('barakah_current_user');
+            localStorage.removeItem('hijraplan_current_user');
             currentUser = null;
             checkAuth();
         }
@@ -305,7 +309,7 @@
         function checkAuth() {
             if(currentUser) {
                 document.getElementById('auth-container').classList.add('hidden');
-                document.getElementById('user-display-name').innerText = `Ahlan wa Sahlan, ${currentUser.nickname}`;
+                document.getElementById('user-display-name').innerText = `Ahlan, ${currentUser.nickname}`;
                 loadUserData();
             } else {
                 document.getElementById('auth-container').classList.remove('hidden');
@@ -331,15 +335,14 @@
             const selector = document.getElementById('city-selector');
             selector.innerHTML = cities.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
             
-            // Load saved city or default to Jakarta (1301)
-            const savedCity = localStorage.getItem('barakah_selected_city') || '1301';
+            const savedCity = localStorage.getItem('hijraplan_selected_city') || '1301';
             selector.value = savedCity;
             fetchPrayerTimes(savedCity);
         }
 
         function changeCity() {
             const cityId = document.getElementById('city-selector').value;
-            localStorage.setItem('barakah_selected_city', cityId);
+            localStorage.setItem('hijraplan_selected_city', cityId);
             fetchPrayerTimes(cityId);
         }
 
@@ -393,7 +396,7 @@
 
         function loadUserData() {
             if(!currentUser) return;
-            const savedData = localStorage.getItem(`barakah_data_${currentUser.email}`);
+            const savedData = localStorage.getItem(`hijraplan_data_${currentUser.email}`);
             if(savedData) {
                 db = JSON.parse(savedData);
             } else {
@@ -408,7 +411,7 @@
 
         function saveDB() {
             if(!currentUser) return;
-            localStorage.setItem(`barakah_data_${currentUser.email}`, JSON.stringify(db));
+            localStorage.setItem(`hijraplan_data_${currentUser.email}`, JSON.stringify(db));
             document.getElementById('total-points').innerText = db.points;
         }
 
