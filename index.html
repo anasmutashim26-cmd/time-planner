@@ -10,83 +10,63 @@
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: radial-gradient(circle at 50% 0%, #1e3a8a 0%, #0f172a 60%, #020617 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
             background-attachment: fixed;
             color: #ffffff; 
         }
         .font-arabic { font-family: 'Amiri', serif; }
         .card-3d { 
-            background: linear-gradient(145deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.7) 100%);
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            box-shadow: 0 20px 40px -15px rgba(2, 6, 23, 0.7), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(30, 58, 138, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12); 
+            box-shadow: 0 10px 25px -5px rgba(2, 6, 23, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .card-3d:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3), inset 0 1px 2px 0 rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.25);
         }
         .btn-3d-amber {
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-            box-shadow: 0 8px 20px -4px rgba(217, 119, 6, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
         }
         .btn-3d-emerald {
             background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-            box-shadow: 0 8px 20px -4px rgba(5, 150, 105, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
         }
         .btn-3d-purple {
             background: linear-gradient(135deg, #a78bfa 0%, #6d28d9 100%);
-            box-shadow: 0 8px 20px -4px rgba(109, 40, 217, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
         }
-        .text-glow-white { text-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }
-        .text-glow-blue { text-shadow: 0 0 16px rgba(96, 165, 250, 0.8); }
+        .text-glow-white { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        .text-glow-blue { text-shadow: 0 0 12px rgba(96, 165, 250, 0.6); }
 
-        /* GLOSSY SHINE ANIMATION UNTUK LOGO H */
-        @keyframes shine {
-            0% { transform: translateX(-150%) skewX(-20deg); }
-            100% { transform: translateX(200%) skewX(-20deg); }
+        /* ANIMASI SPLASH SCREEN HALUS */
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; visibility: hidden; }
         }
-        .glossy-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        .glossy-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shine 2s infinite;
-        }
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.8)); }
-        }
-        .animate-logo {
-            animation: pulseGlow 2.5s ease-in-out infinite;
+        .splash-animation {
+            animation: fadeInOut 1.5s ease-in-out forwards;
         }
     </style>
 </head>
 <body class="min-h-screen pb-16 flex flex-col justify-between">
 
-    <!-- SPLASH SCREEN / ANIMASI LOGO H MENGKILAP DI AWAL -->
-    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 transition-opacity duration-700">
-        <div class="relative w-28 h-28 rounded-3xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-6xl shadow-2xl glossy-effect animate-logo">
+    <!-- SPLASH SCREEN / ANIMASI LOGO H DI AWAL -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 splash-animation">
+        <div class="w-24 h-24 rounded-3xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-5xl shadow-2xl">
             H
         </div>
-        <h1 class="text-3xl font-black text-white text-glow-white mt-6 tracking-wide">HijraPlan</h1>
+        <h1 class="text-3xl font-black text-white text-glow-white mt-5 tracking-wide">HijraPlan</h1>
         <a href="https://instagram.com/takutdosa.id" target="_blank" class="text-xs text-amber-300 font-bold tracking-widest mt-2">BY @TAKUTDOSA.ID</a>
-        <div class="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mt-8"></div>
     </div>
 
     <!-- AUTH SECTION (LOGIN / REGISTER) -->
-    <div id="auth-container" class="fixed inset-0 z-40 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl hidden">
-        <div class="max-w-md w-full card-3d p-6 rounded-3xl space-y-6 border border-white/20 shadow-2xl">
+    <div id="auth-container" class="fixed inset-0 z-40 flex items-center justify-center p-4 bg-slate-950/95 hidden">
+        <div class="max-w-md w-full card-3d p-6 rounded-3xl space-y-6 border border-white/20 shadow-2xl bg-slate-900/90">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg glossy-effect">
+                <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg">
                     H
                 </div>
                 <h1 class="text-2xl font-black text-white text-glow-white">HijraPlan</h1>
@@ -99,12 +79,12 @@
                 <div>
                     <label class="block text-xs font-bold text-blue-200 mb-1">Email Pengguna</label>
                     <input type="email" id="login-email" required placeholder="nama@email.com" 
-                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
+                        class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-blue-200 mb-1">Kata Sandi</label>
                     <input type="password" id="login-password" required placeholder="••••••••" 
-                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
+                        class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-amber-400">
                 </div>
                 <button type="submit" class="w-full btn-3d-amber text-slate-950 font-black py-3 rounded-xl text-sm transition-transform active:scale-95">
                     Masuk ke Aplikasi
@@ -119,17 +99,17 @@
                 <div>
                     <label class="block text-xs font-bold text-blue-200 mb-1">Nama Panggilan / Nickname</label>
                     <input type="text" id="reg-nickname" required placeholder="Contoh: Ahmad / Fulan" 
-                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                        class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-blue-200 mb-1">Email</label>
                     <input type="email" id="reg-email" required placeholder="nama@email.com" 
-                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                        class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-blue-200 mb-1">Buat Kata Sandi Baru</label>
                     <input type="password" id="reg-password" required placeholder="••••••••" 
-                        class="w-full bg-slate-900/80 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
+                        class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-300/40 focus:outline-none focus:border-emerald-400">
                 </div>
                 <button type="submit" class="w-full btn-3d-emerald text-slate-950 font-black py-3 rounded-xl text-sm transition-transform active:scale-95">
                     Daftar Akun
@@ -142,10 +122,10 @@
     </div>
 
     <!-- HEADER UTAMA APLIKASI -->
-    <header class="sticky top-0 z-30 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl">
+    <header class="sticky top-0 z-30 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl bg-slate-900/80">
         <div class="max-w-md mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-xl glossy-effect">
+                <div class="w-11 h-11 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-xl">
                     H
                 </div>
                 <div>
@@ -157,7 +137,7 @@
                     <p class="text-[9px] text-red-400/80 font-semibold cursor-pointer hover:underline mt-0.5" onclick="logout()">Keluar Akun <i class="fa-solid fa-right-from-bracket ml-0.5"></i></p>
                 </div>
             </div>
-            <div class="bg-blue-950/80 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30 shadow-inner">
+            <div class="bg-slate-950 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30 shadow-inner">
                 <i class="fa-solid fa-star text-amber-400 mr-1"></i> <span id="total-points">0</span> Hasanah
             </div>
         </div>
@@ -167,428 +147,4 @@
     <main class="max-w-md mx-auto px-4 w-full">
         <!-- VIEW 1: BERANDA -->
         <div id="view-home" class="space-y-5">
-            <div class="text-center py-2 mb-1">
-                <h2 class="text-2xl font-black text-white text-glow-white">Pilih Modul Ibadah</h2>
-                <p class="text-xs text-blue-200/70 font-medium">Kelola waktu 24 jam demi keberkahan dunia & akhirat</p>
-            </div>
-
-            <!-- KARTU WIDGET JADWAL SHALAT LIVE -->
-            <div class="card-3d rounded-3xl p-5 border-l-4 border-cyan-400 relative overflow-hidden space-y-3">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-mosque text-cyan-300 text-lg"></i>
-                        <h3 class="font-bold text-white text-sm">Jadwal Shalat Live</h3>
-                    </div>
-                    <select id="city-selector" onchange="changeCity()" class="bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs rounded-xl px-2.5 py-1.5 focus:outline-none font-semibold">
-                        <!-- Diisi otomatis oleh JavaScript -->
-                    </select>
-                </div>
-                <div id="prayer-times-container" class="grid grid-cols-5 gap-1.5 text-center pt-2 border-t border-white/10">
-                    <div class="col-span-5 text-xs text-blue-200/60 py-2">Memuat jadwal shalat...</div>
-                </div>
-            </div>
-
-            <!-- KARTU 1 -->
-            <div onclick="switchView('view-time')" class="card-3d rounded-3xl p-6 border-l-4 border-amber-400 cursor-pointer relative overflow-hidden group">
-                <div class="absolute -right-6 -bottom-6 text-blue-400/10 text-9xl group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-                <div class="flex items-start justify-between relative z-10 mb-4">
-                    <div class="w-14 h-14 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 text-2xl font-black glossy-effect">
-                        H
-                    </div>
-                    <span class="bg-amber-400/20 text-amber-300 text-[11px] px-3 py-1 rounded-full border border-amber-400/30 font-bold tracking-wide">24 Jam Real-time</span>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-1.5 group-hover:text-amber-300 transition-colors">1. Amal Sholeh Berwaktu</h3>
-                <p class="text-xs text-blue-100/80 leading-relaxed mb-5">Tantangan amalan 24 jam berbasis waktu shalat lengkap dengan fadhilah & dalil shahih.</p>
-                <div class="flex items-center justify-between text-xs text-amber-300 font-bold pt-3 border-t border-white/10">
-                    <span>Buka Jadwal Amalan</span>
-                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </div>
-
-            <!-- KARTU 2 -->
-            <div onclick="switchView('view-dzikir')" class="card-3d rounded-3xl p-6 border-l-4 border-emerald-400 cursor-pointer relative overflow-hidden group">
-                <div class="absolute -right-6 -bottom-6 text-emerald-400/10 text-9xl group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-fingerprint"></i>
-                </div>
-                <div class="flex items-start justify-between relative z-10 mb-4">
-                    <div class="w-14 h-14 rounded-2xl btn-3d-emerald flex items-center justify-center text-slate-950 text-2xl font-black">
-                        <i class="fa-solid fa-hand-holding-heart"></i>
-                    </div>
-                    <span class="bg-emerald-400/20 text-emerald-300 text-[11px] px-3 py-1 rounded-full border border-emerald-400/30 font-bold tracking-wide">Tasbih 3D Counter</span>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-1.5 group-hover:text-emerald-300 transition-colors">2. Dzikir Digital Sunnah</h3>
-                <p class="text-xs text-blue-100/80 leading-relaxed mb-5">Dzikir harian dengan counter interaktif 3D, bacaan Arab, Latin, & hitungan sesuai dalil sahih.</p>
-                <div class="flex items-center justify-between text-xs text-emerald-300 font-bold pt-3 border-t border-white/10">
-                    <span>Mulai Berdzikir</span>
-                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </div>
-
-            <!-- KARTU 3 -->
-            <div onclick="switchView('view-sunnah100')" class="card-3d rounded-3xl p-6 border-l-4 border-purple-400 cursor-pointer relative overflow-hidden group">
-                <div class="absolute -right-6 -bottom-6 text-purple-400/10 text-9xl group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-list-check"></i>
-                </div>
-                <div class="flex items-start justify-between relative z-10 mb-4">
-                    <div class="w-14 h-14 rounded-2xl btn-3d-purple flex items-center justify-center text-white text-2xl font-black">
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="bg-purple-400/20 text-purple-300 text-[11px] px-3 py-1 rounded-full border border-purple-400/30 font-bold tracking-wide">100 Checklist</span>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-1.5 group-hover:text-purple-300 transition-colors">3. 100 Sunnah Sehari-Hari</h3>
-                <p class="text-xs text-blue-100/80 leading-relaxed mb-5">Daftar ringkas 100 amalan sunnah praktis tanpa dalil panjang. Cepat & gampang di-checklist.</p>
-                <div class="flex items-center justify-between text-xs text-purple-300 font-bold pt-3 border-t border-white/10">
-                    <span>Lihat Daftar Sunnah</span>
-                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 2: AMALAN WAKTU -->
-        <div id="view-time" class="hidden space-y-4">
-            <button onclick="switchView('view-home')" class="text-xs font-semibold text-blue-200 hover:text-white flex items-center gap-2 mb-2 bg-blue-900/40 px-3 py-1.5 rounded-lg w-fit border border-white/10">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
-            </button>
-            <div class="card-3d p-4 rounded-2xl border-l-4 border-amber-400">
-                <h2 class="font-bold text-amber-300 text-base mb-1">Amal Sholeh 24 Jam</h2>
-                <p class="text-xs text-blue-100/80">Setiap pergantian waktu memiliki amalan utama & fadhilah keutamaan shahih.</p>
-            </div>
-            <div id="time-list" class="space-y-3"></div>
-        </div>
-
-        <!-- VIEW 3: DZIKIR -->
-        <div id="view-dzikir" class="hidden space-y-4">
-            <button onclick="switchView('view-home')" class="text-xs font-semibold text-blue-200 hover:text-white flex items-center gap-2 mb-2 bg-blue-900/40 px-3 py-1.5 rounded-lg w-fit border border-white/10">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
-            </button>
-            <div class="card-3d p-4 rounded-2xl border-l-4 border-emerald-400">
-                <h2 class="font-bold text-emerald-300 text-base mb-1">Dzikir Digital Sesuai Sunnah</h2>
-                <p class="text-xs text-blue-100/80">Ketuk counter untuk menghitung. Hitungan disesuaikan dengan dalil shahih Nabi SAW.</p>
-            </div>
-            <div id="dzikir-list" class="space-y-4"></div>
-        </div>
-
-        <!-- VIEW 4: 100 SUNNAH -->
-        <div id="view-sunnah100" class="hidden space-y-4">
-            <button onclick="switchView('view-home')" class="text-xs font-semibold text-blue-200 hover:text-white flex items-center gap-2 mb-2 bg-blue-900/40 px-3 py-1.5 rounded-lg w-fit border border-white/10">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
-            </button>
-            <div class="card-3d p-4 rounded-2xl border-l-4 border-purple-400">
-                <h2 class="font-bold text-purple-300 text-base mb-1">100 Amalan Sunnah Sehari-Hari</h2>
-                <p class="text-xs text-blue-100/80 mb-3">Tandai amalan sunnah yang berhasil kamu kerjakan hari ini.</p>
-                <input type="text" id="search-sunnah" onkeyup="filterSunnah()" placeholder="Cari sunnah (misal: tidur, makan, shalat)..." 
-                    class="w-full bg-slate-950/80 border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-blue-300/50 focus:outline-none focus:border-purple-400 shadow-inner">
-            </div>
-            <div id="sunnah100-list" class="space-y-2.5"></div>
-        </div>
-    </main>
-
-    <script>
-        // SPLASH SCREEN TIMER
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    checkAuth();
-                }, 700);
-            }, 1800);
-        });
-
-        // AUTH SYSTEM
-        let usersDB = JSON.parse(localStorage.getItem('hijraplan_users')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('hijraplan_current_user')) || null;
-
-        function toggleAuthMode(mode) {
-            if(mode === 'register') {
-                document.getElementById('form-login').classList.add('hidden');
-                document.getElementById('form-register').classList.remove('hidden');
-                document.getElementById('auth-subtitle').innerText = "Buat akun baru & masukkan nama panggilanmu";
-            } else {
-                document.getElementById('form-register').classList.add('hidden');
-                document.getElementById('form-login').classList.remove('hidden');
-                document.getElementById('auth-subtitle').innerText = "Silakan masuk atau daftar akun terlebih dahulu";
-            }
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            const nickname = document.getElementById('reg-nickname').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-password').value;
-
-            if(usersDB.some(u => u.email === email)) {
-                alert('Email ini sudah terdaftar! Silakan langsung login.');
-                return;
-            }
-
-            const newUser = { nickname, email, password };
-            usersDB.push(newUser);
-            localStorage.setItem('hijraplan_users', JSON.stringify(usersDB));
-            
-            alert('Pendaftaran berhasil! Silakan login dengan email dan sandi Anda.');
-            toggleAuthMode('login');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-
-            const foundUser = usersDB.find(u => u.email === email && u.password === password);
-
-            if(foundUser) {
-                currentUser = foundUser;
-                localStorage.setItem('hijraplan_current_user', JSON.stringify(currentUser));
-                checkAuth();
-            } else {
-                alert('Login Gagal! Email atau kata sandi salah / belum terdaftar.');
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('hijraplan_current_user');
-            currentUser = null;
-            checkAuth();
-        }
-
-        function checkAuth() {
-            if(currentUser) {
-                document.getElementById('auth-container').classList.add('hidden');
-                document.getElementById('user-display-name').innerText = `Ahlan, ${currentUser.nickname}`;
-                loadUserData();
-            } else {
-                document.getElementById('auth-container').classList.remove('hidden');
-            }
-        }
-
-        // PRAYER TIMES LIVE API SYSTEM
-        const cities = [
-            { name: "Jakarta", id: "1301" },
-            { name: "Surabaya", id: "1602" },
-            { name: "Bandung", id: "1218" },
-            { name: "Semarang", id: "1503" },
-            { name: "Yogyakarta", id: "1507" },
-            { name: "Medan", id: "0101" },
-            { name: "Makassar", id: "2701" },
-            { name: "Palembang", id: "0601" },
-            { name: "Malang", id: "1635" },
-            { name: "Kendal", id: "1504" },
-            { name: "Aceh", id: "0102" }
-        ];
-
-        function initCitySelector() {
-            const selector = document.getElementById('city-selector');
-            selector.innerHTML = cities.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            
-            const savedCity = localStorage.getItem('hijraplan_selected_city') || '1301';
-            selector.value = savedCity;
-            fetchPrayerTimes(savedCity);
-        }
-
-        function changeCity() {
-            const cityId = document.getElementById('city-selector').value;
-            localStorage.setItem('hijraplan_selected_city', cityId);
-            fetchPrayerTimes(cityId);
-        }
-
-        async function fetchPrayerTimes(cityId) {
-            const container = document.getElementById('prayer-times-container');
-            container.innerHTML = `<div class="col-span-5 text-xs text-blue-200/60 py-2">Memuat jadwal shalat...</div>`;
-            
-            try {
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = String(today.getMonth() + 1).padStart(2, '0');
-                const day = String(today.getDate()).padStart(2, '0');
-
-                const response = await fetch(`https://api.myquran.com/v2/sholat/jadwal/${cityId}/${year}/${month}/${day}`);
-                const data = await response.json();
-
-                if(data.status && data.data && data.data.jadwal) {
-                    const j = data.data.jadwal;
-                    container.innerHTML = `
-                        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/5">
-                            <span class="block text-[10px] text-blue-200/70 font-semibold">Subuh</span>
-                            <span class="text-xs font-black text-cyan-300">${j.subuh}</span>
-                        </div>
-                        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/5">
-                            <span class="block text-[10px] text-blue-200/70 font-semibold">Dhuha</span>
-                            <span class="text-xs font-black text-amber-300">${j.dhuha}</span>
-                        </div>
-                        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/5">
-                            <span class="block text-[10px] text-blue-200/70 font-semibold">Dzuhur</span>
-                            <span class="text-xs font-black text-cyan-300">${j.dzuhur}</span>
-                        </div>
-                        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/5">
-                            <span class="block text-[10px] text-blue-200/70 font-semibold">Ashar</span>
-                            <span class="text-xs font-black text-cyan-300">${j.ashar}</span>
-                        </div>
-                        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/5">
-                            <span class="block text-[10px] text-blue-200/70 font-semibold">Maghrib</span>
-                            <span class="text-xs font-black text-cyan-300">${j.maghrib}</span>
-                        </div>
-                    `;
-                } else {
-                    container.innerHTML = `<div class="col-span-5 text-xs text-red-400 py-2">Gagal memuat jadwal shalat.</div>`;
-                }
-            } catch (err) {
-                container.innerHTML = `<div class="col-span-5 text-xs text-red-400 py-2">Koneksi jaringan bermasalah.</div>`;
-            }
-        }
-
-        // APP DATA SYSTEM
-        let db = { time: {}, dzikir: {}, sunnah: {}, points: 0 };
-
-        function loadUserData() {
-            if(!currentUser) return;
-            const savedData = localStorage.getItem(`hijraplan_data_${currentUser.email}`);
-            if(savedData) {
-                db = JSON.parse(savedData);
-            } else {
-                db = { time: {}, dzikir: {}, sunnah: {}, points: 0 };
-            }
-            document.getElementById('total-points').innerText = db.points;
-            renderTime();
-            renderDzikir();
-            renderSunnah();
-            initCitySelector();
-        }
-
-        function saveDB() {
-            if(!currentUser) return;
-            localStorage.setItem(`hijraplan_data_${currentUser.email}`, JSON.stringify(db));
-            document.getElementById('total-points').innerText = db.points;
-        }
-
-        function switchView(viewId) {
-            ['view-home', 'view-time', 'view-dzikir', 'view-sunnah100'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
-            document.getElementById(viewId).classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        const timeData = [
-            { id: 't1', time: '01.00 - 04.00', title: 'Shalat Sunnah Tahajud & Istighfar Sahar', dalil: 'HR. Bukhari no. 1145', reward: 'Allah turun ke langit dunia mengabulkan doa & mengampuni dosa.' },
-            { id: 't2', time: '04.30 - 05.30', title: 'Shalat Subuh Berjamaah & Dzikir Pagi', dalil: 'HR. Muslim no. 657', reward: 'Berada dalam jaminan perlindungan Allah seharian penuh.' },
-            { id: 't3', time: '06.30 - 11.00', title: 'Shalat Sunnah Dhuha (2-4 Rakaat)', dalil: 'HR. Muslim no. 720', reward: 'Mencukupi sedekah bagi seluruh 360 persendian tubuh.' },
-            { id: 't4', time: '12.00 - 13.00', title: 'Shalat Rawatib Dzuhur & Qailulah', dalil: 'HR. Tirmidzi no. 427', reward: 'Dibangunkan rumah indah di dalam surga.' },
-            { id: 't5', time: '15.30 - 17.30', title: 'Shalat Asar Tepat Waktu & Dzikir Petang', dalil: 'HR. Bukhari no. 553', reward: 'Menjaga amalan tidak gugur & jaminan tidak masuk neraka.' },
-            { id: 't6', time: '18.00 - 19.00', title: 'Shalat Maghrib, Tilawah & Ba\'diyah', dalil: 'HR. Ibn Majah no. 1166', reward: 'Pahala melimpah di waktu pergantian siang dan malam.' },
-            { id: 't7', time: '19.30 - 21.00', title: 'Shalat Isya Berjamaah & Ba\'diyah', dalil: 'HR. Muslim no. 656', reward: 'Pahala seperti shalat separuh malam suntuk.' },
-            { id: 't8', time: '21.30 - 23.59', title: 'Wudhu, Ayat Kursi & Dzikir Sebelum Tidur', dalil: 'HR. Bukhari no. 2311', reward: 'Dijaga malaikat dan tidak didekati setan hingga pagi.' }
-        ];
-
-        const dzikirData = [
-            { id: 'd1', title: 'Tasbih, Tahmid, Takbir Ba\'da Shalat', arab: 'سُبْحَانَ اللَّهِ ، وَالْحَمْدُ لِلَّهِ ، وَاللَّهُ أَكْبَرُ', latin: 'Subhanallah (33x), Alhamdulillah (33x), Allahu Akbar (33x)', max: 99, dalil: 'HR. Muslim no. 597' },
-            { id: 'd2', title: 'Pelebur Dosa Sebanyak Buih Laut', arab: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', latin: 'Subhanallahi wa bihamdihi', max: 100, dalil: 'HR. Bukhari no. 6405' },
-            { id: 'd3', title: 'Dua Kalimat Berat di Timbangan Mizan', arab: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ', latin: 'Subhanallahi wa bihamdihi, Subhanallahil \'Adzhim', max: 33, dalil: 'HR. Bukhari no. 6482' },
-            { id: 'd4', title: 'Pahala Memerdekakan 10 Budak', arab: 'لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', latin: 'Laa ilaha illallahu wahdahu laa syarika lah...', max: 100, dalil: 'HR. Bukhari no. 3293' },
-            { id: 'd5', title: 'Istighfar Harian Pelebur Dosa', arab: 'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', latin: 'Astaghfirullah wa atubu ilaih', max: 100, dalil: 'HR. Bukhari no. 6307' }
-        ];
-
-        const sunnah100Data = [
-            "Wudhu sebelum tidur.", "Membaca ayat Kursi sebelum tidur.", "Membaca 2 ayat terakhir surat Al-Baqarah sebelum tidur.", "Membaca surat Al-Kafirun sebelum tidur.", "Tidur menghadap ke kanan dan menempelkan tangan kanan di bawah pipi kanan.", "Membaca dzikir Allahu Akbar 34x, Alhamdulillah 33x, dan Subhanallah 33x sebelum tidur.", "Membaca surat Al-Israa’ dan Az-Zumar sebelum tidur.", "Membaca surat As-Sajdah dan Al-Mulk sebelum tidur.", "Mengibaskan tempat tidur sambil membaca bismillah sebelum tidur.", "Membaca doa sebelum dan sesudah tidur.",
-            "Mengusap bekas kantuk di wajah setelah bangun tidur.", "Membasuh kedua tangan sebanyak 3x setelah bangun tidur.", "Memasukkan air ke hidung dan mulut (istinsyaq) setelah bangun tidur.", "Menggosok gigi/bersiwak setelah bangun tidur.", "Membaca 10 ayat terakhir surat Ali ‘Imran (190–200) setelah bangun tidur.", "Bersiwak/menggosok gigi sebelum berwudhu.", "Masuk rumah membaca bismillah dan mengucapkan salam.", "Masuk kamar mandi/WC dengan kaki kiri dan keluar dengan kaki kanan.", "Masuk kamar mandi/WC membaca bismillah.", "Membaca doa masuk dan keluar kamar mandi/WC.",
-            "Tidak menghadap atau membelakangi kiblat saat buang hajat.", "Tidak menyentuh kemaluan dengan tangan kanan saat buang air kecil dan cebok dengan tangan kiri.", "Membaca surat Ali 'Imran ayat 8 setelah Al-Fatihah rakaat ke-3 Maghrib.", "Memakai sandal dari kaki kanan, melepas dari kaki kiri.", "Membaca bismillah sebelum makan.", "Makan tidak sambil bersandar.", "Menjilat jari-jari setelah selesai makan.", "Makan dan minum dengan tangan kanan.", "Makan dengan 3 jari.", "Makan dari bagian pinggir piring.",
-            "Tidak bernafas di dalam gelas saat minum.", "Tidak meniup makanan atau minuman panas.", "Membaca doa setelah makan.", "Membaca doa kaffaratul majlis setelah membaca Al-Qur'an.", "Shalat sunnah 4 rakaat sebelum Dzuhur dan 4 rakaat sesudah Dzuhur.", "Shalat sunnah 4 rakaat setelah 'Isya.", "Shalat sunnah 2 rakaat sebelum Maghrib.", "Shalat sunnah 4 rakaat sebelum 'Ashar.", "Shalat sunnah 2 rakaat setelah 'Ashar (sebelum matahari menguning).", "Berpuasa 3 hari setiap bulan (Ayyamul Bidh: 13, 14, 15 Hijriyah).",
-            "Berpuasa pada hari Senin dan Kamis.", "Berpuasa Daud (sehari puasa, sehari tidak).", "Membaca 100 ayat Al-Qur'an setiap malam.", "Membaca 'subhaanaka fa balaa' saat mendengar ayat terakhir Al-Qiyamah.", "Membaca 'subhaana robbiyal a’laa' saat membaca ayat pertama Al-A'la.", "Membaca Al-Qur'an diawali dengan ta'awudz.", "Bershalawat saat mendengar atau mengucapkan nama Nabi Muhammad SAW.", "Menjawab salam dengan ucapan yang serupa atau lebih baik.", "Tersenyum kepada sesama muslim.", "Berjabat tangan saat bertemu sesama muslim.",
-            "Menjawab bacaan adzan sesuai lafazh muadzin.", "Bershalawat dan membaca doa setelah mendengar adzan.", "Membaca doa menuju masjid.", "Bergegas menuju masjid ketika adzan berkumandang.", "Berwudhu dari rumah sebelum ke masjid.", "Membaca doa keluar rumah.", "Mengucapkan salam saat memasuki rumah yang kosong.", "Membaca ayat Kursi setelah shalat fardhu.", "Membaca ayat Kursi 1x di waktu pagi dan petang.", "Membaca 'Allaahummaghfirlii wa tub ‘alayya...' 100x setelah shalat Dhuha.",
-            "Membaca 3 Qul (Al-Ikhlas, Al-Falaq, An-Nas) setelah shalat fardhu.", "Memanjang jenggot dan memendekkan kumis (pria).", "Memakai celana/sarung di atas mata kaki (cingkrang).", "Memakai cadar bagi wanita.", "Memakai sepatu sambil duduk mendahulukan kaki kanan.", "Mengangkat/mengisyaratkan telunjuk sejak awal tasyahud.", "Membaca Al-Kafirun & Al-Ikhlas pada Qabliyah Subuh.", "Membaca Al-Kafirun & Al-Ikhlas pada Ba'diyah Maghrib.", "Membaca Al-Kafirun & Al-Ikhlas pada shalat Maghrib malam Jum'at.", "Membaca shalawat 10x di waktu pagi dan petang.",
-            "Menjaga 12 rakaat shalat sunnah Rawatib Mu'akkad.", "Duduk istirahat sejenak sebelum bangkit ke rakaat berikutnya.", "Berdoa setelah hujan berhenti.", "Memperbanyak istighfar dan dzikir harian.", "Membaca bismillah saat tersandung.", "Membaca bismillah saat melepaskan pakaian.", "Memakai pakaian mendahulukan bagian sebelah kanan.", "Memperbanyak shalawat pada hari Jum'at.", "Membaca surat Al-Kahfi pada malam Jum'at.", "Membaca surat Al-Kahfi pada hari Jum'at.",
-            "Bertasbih menggunakan jari-jari tangan kanan.", "Mengerjakan shalat Dhuha (minimal 2 rakaat).", "Membunuh cicak.", "Menjaga diri agar tidak terkena percikan kencing.", "Mandi Jum'at sebelum shalat Jum'at.", "Meninggalkan dan menghindar saat mendengar musik.", "Tidak mengusap wajah setelah selesai berdoa.", "Memulai doa dengan pujian kepada Allah lalu bershalawat.", "Berdoa dengan menyebut Asmaul Husna.", "Berdoa menghadap ke arah kiblat.",
-            "Berdoa dengan mengangkat dan menggabungkan telapak tangan.", "Tidak mengangkat tangan saat berdoa dalam khutbah Jum'at.", "Memperbanyak doa saat hujan turun.", "Memperbanyak doa setelah waktu Ashar pada hari Jum'at.", "Memperbanyak doa ketika sujud.", "Berdoa sebelum salam setelah tasyahud akhir.", "Memaksimalkan berdoa di antara adzan dan iqamah.", "Shalat 2 rakaat Tahiyyatul Masjid sebelum duduk.", "Mengucapkan Alhamdulillah saat bersin & membalasnya.", "Menutup wajah saat bersin dan menahan mulut saat menguap."
-        ];
-
-        function renderTime() {
-            const container = document.getElementById('time-list');
-            container.innerHTML = timeData.map(item => {
-                const checked = db.time[item.id] ? 'checked' : '';
-                return `
-                    <div class="card-3d p-4 rounded-2xl space-y-2.5">
-                        <div class="flex items-center justify-between">
-                            <span class="bg-amber-400/20 text-amber-300 text-xs px-2.5 py-1 rounded-lg font-bold border border-amber-400/30">${item.time}</span>
-                            <input type="checkbox" onchange="toggleTime('${item.id}')" ${checked} class="w-5 h-5 accent-amber-400 rounded cursor-pointer">
-                        </div>
-                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
-                        <div class="bg-slate-950/60 p-3 rounded-xl text-xs space-y-1 border border-white/5">
-                            <p class="text-amber-300 font-semibold"><i class="fa-solid fa-gift mr-1"></i> ${item.reward}</p>
-                            <p class="text-blue-200/60 text-[10px] italic">${item.dalil}</p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function toggleTime(id) {
-            db.time[id] = !db.time[id];
-            db.points += db.time[id] ? 10 : -10;
-            saveDB();
-        }
-
-        function renderDzikir() {
-            const container = document.getElementById('dzikir-list');
-            container.innerHTML = dzikirData.map(item => {
-                const count = db.dzikir[item.id] || 0;
-                return `
-                    <div class="card-3d p-5 rounded-2xl space-y-3.5">
-                        <div class="flex justify-between items-start">
-                            <h4 class="font-bold text-white text-sm">${item.title}</h4>
-                            <span class="text-[10px] bg-blue-950/80 text-blue-200 px-2 py-1 rounded border border-white/10">${item.dalil}</span>
-                        </div>
-                        <p class="font-arabic text-right text-xl text-amber-300 leading-loose text-glow-white">${item.arab}</p>
-                        <p class="text-xs text-blue-100/90 italic">${item.latin}</p>
-                        <div class="flex items-center justify-between pt-2 border-t border-white/10">
-                            <span class="text-xs font-black text-emerald-300">${count} / ${item.max}x</span>
-                            <button onclick="addDzikir('${item.id}', ${item.max})" class="btn-3d-emerald text-slate-950 font-black px-5 py-2.5 rounded-xl text-xs active:scale-95 transition-transform">
-                                <i class="fa-solid fa-plus mr-1"></i> Hitung
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function addDzikir(id, max) {
-            if (!db.dzikir[id]) db.dzikir[id] = 0;
-            if (db.dzikir[id] < max) {
-                db.dzikir[id]++;
-                db.points += 1;
-                saveDB();
-                renderDzikir();
-            }
-        }
-
-        function renderSunnah() {
-            const container = document.getElementById('sunnah100-list');
-            container.innerHTML = sunnah100Data.map((text, idx) => {
-                const checked = db.sunnah[idx] ? 'checked' : '';
-                return `
-                    <label class="card-3d p-3.5 rounded-xl flex items-start gap-3 cursor-pointer hover:border-purple-400/50 transition-colors">
-                        <input type="checkbox" onchange="toggleSunnah(${idx})" ${checked} class="mt-0.5 w-4 h-4 accent-purple-400 rounded">
-                        <span class="text-xs text-white leading-relaxed"><strong class="text-purple-300 mr-1">${idx+1}.</strong> ${text}</span>
-                    </label>
-                `;
-            }).join('');
-        }
-
-        function toggleSunnah(idx) {
-            db.sunnah[idx] = !db.sunnah[idx];
-            db.points += db.sunnah[idx] ? 5 : -5;
-            saveDB();
-        }
-
-        function filterSunnah() {
-            const q = document.getElementById('search-sunnah').value.toLowerCase();
-            const items = document.querySelectorAll('#sunnah100-list label');
-            items.forEach(item => {
-                item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
-            });
-        }
-    </script>
-</body>
-</html>
+            <div class="text-center py-2 mb
