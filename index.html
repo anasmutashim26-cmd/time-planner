@@ -124,7 +124,7 @@
         </div>
     </header>
 
-    <!-- MAIN APP CONTENT (RESPONSIVE MAX-WIDTH 4XL) -->
+    <!-- MAIN APP CONTENT -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 w-full">
         <!-- VIEW 1: BERANDA -->
         <div id="view-home" class="space-y-6">
@@ -149,7 +149,7 @@
                 </div>
             </div>
 
-            <!-- GRID MENU UTAMA (FLEKSIBEL: 1 KOLOM DI HP, 3 KOLOM DI PC) -->
+            <!-- GRID MENU UTAMA -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                 <!-- KARTU 1 -->
                 <div onclick="switchView('view-time')" class="card-3d rounded-3xl p-6 border-l-4 border-amber-400 cursor-pointer relative overflow-hidden group bg-slate-900/60 flex flex-col justify-between">
@@ -313,19 +313,35 @@
             }
         }
 
-        // PRAYER TIMES LIVE API SYSTEM
+        // PRAYER TIMES LIVE API SYSTEM (LENGKAP WIB, WITA, WIT: MALUKU, PAPUA, NTT, NTB, DLL)
         const cities = [
+            // Jabodetabek & Jawa (WIB)
             { name: "Jakarta", id: "1301" },
             { name: "Surabaya", id: "1602" },
             { name: "Bandung", id: "1218" },
             { name: "Semarang", id: "1503" },
             { name: "Yogyakarta", id: "1507" },
-            { name: "Medan", id: "0101" },
-            { name: "Makassar", id: "2701" },
-            { name: "Palembang", id: "0601" },
             { name: "Malang", id: "1635" },
             { name: "Kendal", id: "1504" },
-            { name: "Aceh", id: "0102" }
+            { name: "Medan", id: "0101" },
+            { name: "Palembang", id: "0601" },
+            { name: "Aceh", id: "0102" },
+            
+            // Bali, NTB, NTT & Kalimantan (WITA)
+            { name: "Denpasar (Bali)", id: "2201" },
+            { name: "Mataram (NTB)", id: "2301" },
+            { name: "Kupang (NTT)", id: "2401" },
+            { name: "Makassar (Sulsel)", id: "2701" },
+            { name: "Balikpapan (Kaltim)", id: "2502" },
+            { name: "Banjarmasin (Kalsel)", id: "2601" },
+            { name: "Pontianak (Kalbar)", id: "2001" },
+
+            // Maluku & Papua (WIT)
+            { name: "Ambon (Maluku)", id: "2901" },
+            { name: "Ternate (Maluku Utara)", id: "3001" },
+            { name: "Jayapura (Papua)", id: "3101" },
+            { name: "Sorong (Papua Barat)", id: "3201" },
+            { name: "Merauke (Papua Selatan)", id: "3105" }
         ];
 
         function initCitySelector() {
