@@ -41,16 +41,53 @@
         }
         .text-glow-white { text-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }
         .text-glow-blue { text-shadow: 0 0 16px rgba(96, 165, 250, 0.8); }
+
+        /* GLOSSY SHINE ANIMATION UNTUK LOGO H */
+        @keyframes shine {
+            0% { transform: translateX(-150%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+        .glossy-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .glossy-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shine 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.8)); }
+        }
+        .animate-logo {
+            animation: pulseGlow 2.5s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-16 flex flex-col justify-between">
 
+    <!-- SPLASH SCREEN / ANIMASI LOGO H MENGKILAP DI AWAL -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 transition-opacity duration-700">
+        <div class="relative w-28 h-28 rounded-3xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-6xl shadow-2xl glossy-effect animate-logo">
+            H
+        </div>
+        <h1 class="text-3xl font-black text-white text-glow-white mt-6 tracking-wide">HijraPlan</h1>
+        <a href="https://instagram.com/takutdosa.id" target="_blank" class="text-xs text-amber-300 font-bold tracking-widest mt-2">BY @TAKUTDOSA.ID</a>
+        <div class="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mt-8"></div>
+    </div>
+
     <!-- AUTH SECTION (LOGIN / REGISTER) -->
-    <div id="auth-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl">
+    <div id="auth-container" class="fixed inset-0 z-40 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl hidden">
         <div class="max-w-md w-full card-3d p-6 rounded-3xl space-y-6 border border-white/20 shadow-2xl">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg">
-                    <i class="fa-solid fa-kaaba"></i>
+                <div class="w-14 h-14 mx-auto rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-3xl shadow-lg glossy-effect">
+                    H
                 </div>
                 <h1 class="text-2xl font-black text-white text-glow-white">HijraPlan</h1>
                 <a href="https://instagram.com/takutdosa.id" target="_blank" class="inline-block text-[10px] text-amber-300 font-bold tracking-wider hover:underline">BY @TAKUTDOSA.ID <i class="fa-solid fa-arrow-up-right-from-square text-[8px] ml-0.5"></i></a>
@@ -105,11 +142,11 @@
     </div>
 
     <!-- HEADER UTAMA APLIKASI -->
-    <header class="sticky top-0 z-40 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl">
+    <header class="sticky top-0 z-30 card-3d border-b border-white/10 px-4 py-3.5 mb-6 rounded-b-2xl">
         <div class="max-w-md mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-2xl">
-                    <i class="fa-solid fa-kaaba"></i>
+                <div class="w-11 h-11 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 font-black text-xl glossy-effect">
+                    H
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
@@ -157,8 +194,8 @@
                     <i class="fa-solid fa-clock"></i>
                 </div>
                 <div class="flex items-start justify-between relative z-10 mb-4">
-                    <div class="w-14 h-14 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 text-2xl font-black">
-                        <i class="fa-solid fa-hourglass-half"></i>
+                    <div class="w-14 h-14 rounded-2xl btn-3d-amber flex items-center justify-center text-slate-950 text-2xl font-black glossy-effect">
+                        H
                     </div>
                     <span class="bg-amber-400/20 text-amber-300 text-[11px] px-3 py-1 rounded-full border border-amber-400/30 font-bold tracking-wide">24 Jam Real-time</span>
                 </div>
@@ -249,6 +286,18 @@
     </main>
 
     <script>
+        // SPLASH SCREEN TIMER
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    checkAuth();
+                }, 700);
+            }, 1800);
+        });
+
         // AUTH SYSTEM
         let usersDB = JSON.parse(localStorage.getItem('hijraplan_users')) || [];
         let currentUser = JSON.parse(localStorage.getItem('hijraplan_current_user')) || null;
@@ -540,9 +589,6 @@
                 item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
             });
         }
-
-        // Initialize App Check
-        checkAuth();
     </script>
 </body>
 </html>
